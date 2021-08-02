@@ -6,13 +6,22 @@ import 'package:upday_app/data/repositories/home/index.dart';
 
 import 'components/index.dart';
 
-class HomePage extends StatelessWidget {
-  HomePage({Key? key}) : super(key: key);
+class HomePage extends StatefulWidget {
+  const HomePage({Key? key}) : super(key: key);
 
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage>
+    with AutomaticKeepAliveClientMixin {
+  @override
+  bool get wantKeepAlive => true;
   final HomeRepository homeRepository = HomeRepository();
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Scaffold(
       body: RepositoryProvider(
         create: (context) => homeRepository,
