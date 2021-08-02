@@ -28,12 +28,13 @@ abstract class Pagination<T>
     final serializersWithBuilder = (serializers.toBuilder()
           ..addBuilderFactory(specifiedType, () => PaginationBuilder<T>())
           ..addBuilderFactory(
-              FullType(BuiltList, [FullType(T)]), () => ListBuilder<T>()))
+            FullType(BuiltList, [FullType(T)]),
+            () => ListBuilder<T>(),
+          ))
         .build();
     return serializersWithBuilder.deserialize(json,
         specifiedType: specifiedType) as Pagination<T>;
   }
 
-  static Serializer<Pagination<Object?>> get serializer =>
-      _$paginationSerializer;
+  static Serializer<Pagination> get serializer => _$paginationSerializer;
 }

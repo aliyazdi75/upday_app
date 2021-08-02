@@ -8,6 +8,6 @@ class HomeApi {
     final queryParams = Map<String, String>.from(query.toJson());
     final response =
         await HttpHelper('images/search').httpGet(queryParams: queryParams);
-    return Pagination.fromJson(response);
+    return Pagination.fromJson<Image>(response);
   }
 }

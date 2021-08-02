@@ -24,11 +24,15 @@ class _$ImageSearchQuerySerializer
       serializers.serialize(object.query,
           specifiedType: const FullType(String)),
       'page',
-      serializers.serialize(object.page, specifiedType: const FullType(int)),
+      serializers.serialize(object.page, specifiedType: const FullType(String)),
       'per_page',
-      serializers.serialize(object.perPage, specifiedType: const FullType(int)),
+      serializers.serialize(object.perPage,
+          specifiedType: const FullType(String)),
       'sort',
       serializers.serialize(object.sort, specifiedType: const FullType(String)),
+      'image_type',
+      serializers.serialize(object.imageType,
+          specifiedType: const FullType(String)),
     ];
 
     return result;
@@ -52,14 +56,18 @@ class _$ImageSearchQuerySerializer
           break;
         case 'page':
           result.page = serializers.deserialize(value,
-              specifiedType: const FullType(int)) as int;
+              specifiedType: const FullType(String)) as String;
           break;
         case 'per_page':
           result.perPage = serializers.deserialize(value,
-              specifiedType: const FullType(int)) as int;
+              specifiedType: const FullType(String)) as String;
           break;
         case 'sort':
           result.sort = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'image_type':
+          result.imageType = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
           break;
       }
@@ -73,11 +81,13 @@ class _$ImageSearchQuery extends ImageSearchQuery {
   @override
   final String query;
   @override
-  final int page;
+  final String page;
   @override
-  final int perPage;
+  final String perPage;
   @override
   final String sort;
+  @override
+  final String imageType;
 
   factory _$ImageSearchQuery(
           [void Function(ImageSearchQueryBuilder)? updates]) =>
@@ -87,13 +97,16 @@ class _$ImageSearchQuery extends ImageSearchQuery {
       {required this.query,
       required this.page,
       required this.perPage,
-      required this.sort})
+      required this.sort,
+      required this.imageType})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(query, 'ImageSearchQuery', 'query');
     BuiltValueNullFieldError.checkNotNull(page, 'ImageSearchQuery', 'page');
     BuiltValueNullFieldError.checkNotNull(
         perPage, 'ImageSearchQuery', 'perPage');
     BuiltValueNullFieldError.checkNotNull(sort, 'ImageSearchQuery', 'sort');
+    BuiltValueNullFieldError.checkNotNull(
+        imageType, 'ImageSearchQuery', 'imageType');
   }
 
   @override
@@ -111,14 +124,16 @@ class _$ImageSearchQuery extends ImageSearchQuery {
         query == other.query &&
         page == other.page &&
         perPage == other.perPage &&
-        sort == other.sort;
+        sort == other.sort &&
+        imageType == other.imageType;
   }
 
   @override
   int get hashCode {
     return $jf($jc(
-        $jc($jc($jc(0, query.hashCode), page.hashCode), perPage.hashCode),
-        sort.hashCode));
+        $jc($jc($jc($jc(0, query.hashCode), page.hashCode), perPage.hashCode),
+            sort.hashCode),
+        imageType.hashCode));
   }
 
   @override
@@ -127,7 +142,8 @@ class _$ImageSearchQuery extends ImageSearchQuery {
           ..add('query', query)
           ..add('page', page)
           ..add('perPage', perPage)
-          ..add('sort', sort))
+          ..add('sort', sort)
+          ..add('imageType', imageType))
         .toString();
   }
 }
@@ -140,17 +156,21 @@ class ImageSearchQueryBuilder
   String? get query => _$this._query;
   set query(String? query) => _$this._query = query;
 
-  int? _page;
-  int? get page => _$this._page;
-  set page(int? page) => _$this._page = page;
+  String? _page;
+  String? get page => _$this._page;
+  set page(String? page) => _$this._page = page;
 
-  int? _perPage;
-  int? get perPage => _$this._perPage;
-  set perPage(int? perPage) => _$this._perPage = perPage;
+  String? _perPage;
+  String? get perPage => _$this._perPage;
+  set perPage(String? perPage) => _$this._perPage = perPage;
 
   String? _sort;
   String? get sort => _$this._sort;
   set sort(String? sort) => _$this._sort = sort;
+
+  String? _imageType;
+  String? get imageType => _$this._imageType;
+  set imageType(String? imageType) => _$this._imageType = imageType;
 
   ImageSearchQueryBuilder();
 
@@ -161,6 +181,7 @@ class ImageSearchQueryBuilder
       _page = $v.page;
       _perPage = $v.perPage;
       _sort = $v.sort;
+      _imageType = $v.imageType;
       _$v = null;
     }
     return this;
@@ -188,7 +209,9 @@ class ImageSearchQueryBuilder
             perPage: BuiltValueNullFieldError.checkNotNull(
                 perPage, 'ImageSearchQuery', 'perPage'),
             sort: BuiltValueNullFieldError.checkNotNull(
-                sort, 'ImageSearchQuery', 'sort'));
+                sort, 'ImageSearchQuery', 'sort'),
+            imageType: BuiltValueNullFieldError.checkNotNull(
+                imageType, 'ImageSearchQuery', 'imageType'));
     replace(_$result);
     return _$result;
   }

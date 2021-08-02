@@ -7,16 +7,18 @@ import 'package:upday_app/data/providers/api/home/index.dart';
 class HomeRepository {
   Future<Pagination<Image>> getImagesPagination({
     required int page,
-    String query = 'sunrise',
+    required String query,
     int perPage = 5,
     String sort = 'popular',
+    String imageType = 'photo',
   }) async {
     final imageSearchQuery = ImageSearchQuery(
       (b) => b
         ..query = query
-        ..page = page
-        ..perPage = perPage
-        ..sort = sort,
+        ..page = page.toString()
+        ..perPage = perPage.toString()
+        ..sort = sort
+        ..imageType = imageType,
     );
 
     return await HomeApi.getImagesPagination(imageSearchQuery);

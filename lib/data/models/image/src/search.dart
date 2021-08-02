@@ -8,12 +8,15 @@ abstract class ImageSearchQuery
     implements Built<ImageSearchQuery, ImageSearchQueryBuilder> {
   String get query;
 
-  int get page;
+  String get page;
 
   @BuiltValueField(wireName: 'per_page')
-  int get perPage;
+  String get perPage;
 
   String get sort;
+
+  @BuiltValueField(wireName: 'image_type')
+  String get imageType;
 
   ImageSearchQuery._();
 

@@ -8,6 +8,10 @@ abstract class HomeEvent extends Equatable {
   List<Object?> get props => [];
 }
 
+class GetImagesRequested extends HomeEvent {
+  const GetImagesRequested();
+}
+
 class GetMoreImagesRequested extends HomeEvent {
   const GetMoreImagesRequested();
 }

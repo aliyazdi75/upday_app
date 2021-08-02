@@ -8,6 +8,9 @@ part of serializers;
 
 Serializers _$serializers = (new Serializers().toBuilder()
       ..add(HttpExceptionModel.serializer)
+      ..add(Image.serializer)
+      ..add(ImageAsset.serializer)
+      ..add(ImageProperties.serializer)
       ..add(Pagination.serializer))
     .build();
 

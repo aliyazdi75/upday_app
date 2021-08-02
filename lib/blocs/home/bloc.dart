@@ -13,25 +13,33 @@ part 'state.dart';
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
   HomeBloc({
     required this.homeRepository,
-  }) : super(const HomeState());
+    required this.query,
+  }) : super(HomeState(query: query));
 
   final HomeRepository homeRepository;
+  final String query;
 
   @override
   Stream<HomeState> mapEventToState(HomeEvent event) async* {
-    if (event is GetMoreImagesRequested) {
-      yield* _mapGetMoreImagesRequestedToState();
+    if (event is GetImagesRequested) {
+      yield state.copyWith(status: HomeStatus.loading);
+      yield* _mapGetImagesRequestedToState();
+    } else if (event is GetMoreImagesRequested) {
+      yield state.copyWith(status: HomeStatus.moreLoading);
+      yield* _mapGetImagesRequestedToState();
     }
   }
 
-  Stream<HomeState> _mapGetMoreImagesRequestedToState() async* {
-    yield state.copyWith(status: HomeStatus.loading);
+  Stream<HomeState> _mapGetImagesRequestedToState() async* {
     try {
-      final imagesPaginationResponse =
-          await homeRepository.getImagesPagination(page: state.page + 1);
+      final imagesPaginationResponse = await homeRepository.getImagesPagination(
+        query: state.query,
+        page: state.page + 1,
+      );
       yield state.copyWith(
         status: HomeStatus.success,
         page: imagesPaginationResponse.page,
+        hasMoreData: imagesPaginationResponse.data.isNotEmpty,
         images: imagesPaginationResponse.data.toList(),
       );
     } on Exception {

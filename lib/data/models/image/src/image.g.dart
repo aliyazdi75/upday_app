@@ -23,12 +23,12 @@ class _$ImageSerializer implements StructuredSerializer<Image> {
     final result = <Object?>[
       'id',
       serializers.serialize(object.id, specifiedType: const FullType(String)),
-      'aspect',
-      serializers.serialize(object.aspect, specifiedType: const FullType(int)),
       'assets',
       serializers.serialize(object.assets,
-          specifiedType:
-              const FullType(BuiltList, const [const FullType(ImageAsset)])),
+          specifiedType: const FullType(ImageAsset)),
+      'description',
+      serializers.serialize(object.description,
+          specifiedType: const FullType(String)),
     ];
 
     return result;
@@ -49,15 +49,13 @@ class _$ImageSerializer implements StructuredSerializer<Image> {
           result.id = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
           break;
-        case 'aspect':
-          result.aspect = serializers.deserialize(value,
-              specifiedType: const FullType(int)) as int;
-          break;
         case 'assets':
           result.assets.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(
-                      BuiltList, const [const FullType(ImageAsset)]))!
-              as BuiltList<Object?>);
+              specifiedType: const FullType(ImageAsset))! as ImageAsset);
+          break;
+        case 'description':
+          result.description = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
           break;
       }
     }
@@ -204,18 +202,18 @@ class _$Image extends Image {
   @override
   final String id;
   @override
-  final int aspect;
+  final ImageAsset assets;
   @override
-  final BuiltList<ImageAsset> assets;
+  final String description;
 
   factory _$Image([void Function(ImageBuilder)? updates]) =>
       (new ImageBuilder()..update(updates)).build();
 
-  _$Image._({required this.id, required this.aspect, required this.assets})
+  _$Image._({required this.id, required this.assets, required this.description})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(id, 'Image', 'id');
-    BuiltValueNullFieldError.checkNotNull(aspect, 'Image', 'aspect');
     BuiltValueNullFieldError.checkNotNull(assets, 'Image', 'assets');
+    BuiltValueNullFieldError.checkNotNull(description, 'Image', 'description');
   }
 
   @override
@@ -230,21 +228,22 @@ class _$Image extends Image {
     if (identical(other, this)) return true;
     return other is Image &&
         id == other.id &&
-        aspect == other.aspect &&
-        assets == other.assets;
+        assets == other.assets &&
+        description == other.description;
   }
 
   @override
   int get hashCode {
-    return $jf($jc($jc($jc(0, id.hashCode), aspect.hashCode), assets.hashCode));
+    return $jf(
+        $jc($jc($jc(0, id.hashCode), assets.hashCode), description.hashCode));
   }
 
   @override
   String toString() {
     return (newBuiltValueToStringHelper('Image')
           ..add('id', id)
-          ..add('aspect', aspect)
-          ..add('assets', assets))
+          ..add('assets', assets)
+          ..add('description', description))
         .toString();
   }
 }
@@ -256,14 +255,13 @@ class ImageBuilder implements Builder<Image, ImageBuilder> {
   String? get id => _$this._id;
   set id(String? id) => _$this._id = id;
 
-  int? _aspect;
-  int? get aspect => _$this._aspect;
-  set aspect(int? aspect) => _$this._aspect = aspect;
+  ImageAssetBuilder? _assets;
+  ImageAssetBuilder get assets => _$this._assets ??= new ImageAssetBuilder();
+  set assets(ImageAssetBuilder? assets) => _$this._assets = assets;
 
-  ListBuilder<ImageAsset>? _assets;
-  ListBuilder<ImageAsset> get assets =>
-      _$this._assets ??= new ListBuilder<ImageAsset>();
-  set assets(ListBuilder<ImageAsset>? assets) => _$this._assets = assets;
+  String? _description;
+  String? get description => _$this._description;
+  set description(String? description) => _$this._description = description;
 
   ImageBuilder();
 
@@ -271,8 +269,8 @@ class ImageBuilder implements Builder<Image, ImageBuilder> {
     final $v = _$v;
     if ($v != null) {
       _id = $v.id;
-      _aspect = $v.aspect;
       _assets = $v.assets.toBuilder();
+      _description = $v.description;
       _$v = null;
     }
     return this;
@@ -296,9 +294,9 @@ class ImageBuilder implements Builder<Image, ImageBuilder> {
       _$result = _$v ??
           new _$Image._(
               id: BuiltValueNullFieldError.checkNotNull(id, 'Image', 'id'),
-              aspect: BuiltValueNullFieldError.checkNotNull(
-                  aspect, 'Image', 'aspect'),
-              assets: assets.build());
+              assets: assets.build(),
+              description: BuiltValueNullFieldError.checkNotNull(
+                  description, 'Image', 'description'));
     } catch (_) {
       late String _$failedField;
       try {

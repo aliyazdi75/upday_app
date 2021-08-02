@@ -2,6 +2,7 @@ library serializers;
 
 import 'package:built_value/serializer.dart';
 import 'package:built_value/standard_json_plugin.dart';
+import 'package:upday_app/data/models/image/src/image.dart';
 
 import 'exception.dart';
 import 'pagination.dart';
@@ -21,6 +22,7 @@ part 'serializers.g.dart';
 /// You usually only need to do this once per project.
 @SerializersFor([
   Pagination,
+  Image,
   HttpExceptionModel,
 ])
 final Serializers serializers =

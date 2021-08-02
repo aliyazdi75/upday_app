@@ -88,7 +88,7 @@ class HttpHelper implements HttpClientBase {
     try {
       return _responseData(
         await _httpClient.get(
-          Uri.https(serverUrl, '/$apiVersion/$path/', queryParams),
+          Uri.https(serverUrl, '/$apiVersion/$path', queryParams),
           headers: await HttpHeader.setHeader(),
         ),
       );
